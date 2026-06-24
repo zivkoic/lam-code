@@ -18,28 +18,30 @@
 }
 
 html {
-  min-height: 100%;
-  overflow-x: clip;
-  overflow-y: auto;
   scroll-behavior: auto !important;
 }
 
+html,
 body {
   min-height: 100%;
-  overflow-x: clip;
+  height: auto;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
-.page-wrapper,
-.main-wrapper {
+.page-wrapper:has(.scroll-track),
+.main-wrapper:has(.scroll-track) {
   min-height: 100%;
   height: auto;
   overflow: visible;
+  transform: none;
 }
 
 .scroll-track {
   position: relative;
   height: 400vh;
+  min-height: 400vh;
+  overflow: visible;
 }
 
 .home-hero {
