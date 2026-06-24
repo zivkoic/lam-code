@@ -29,14 +29,6 @@ body {
   overflow-y: auto;
 }
 
-.page-wrapper:has(.scroll-track),
-.main-wrapper:has(.scroll-track) {
-  min-height: 100%;
-  height: auto;
-  overflow: visible;
-  transform: none;
-}
-
 .scroll-track {
   position: relative;
   height: 400vh;
@@ -45,8 +37,8 @@ body {
 }
 
 .home-hero {
-  position: sticky;
-  top: 0;
+  position: relative;
+  top: auto;
   height: 100vh;
   overflow: hidden;
 }

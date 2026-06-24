@@ -3,7 +3,7 @@
 
   root.triggerIds = root.triggerIds || [];
 
-  root.createScrollTrigger = (id, config) => {
+  root.createTrigger = (id, config) => {
     const existing = ScrollTrigger.getById(id);
     if (existing) existing.kill();
 
@@ -17,6 +17,8 @@
 
     return trigger;
   };
+
+  root.createScrollTrigger = root.createTrigger;
 
   root.refresh = () => {
     requestAnimationFrame(() => ScrollTrigger.refresh());
@@ -52,6 +54,30 @@
 
   window.addEventListener("load", root.refresh, { once: true });
 })();
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollTrack = document.querySelector(".scroll-track");
+  const homeHero = document.querySelector(".home-hero");
+
+  if (!scrollTrack || !homeHero) return;
+
+  window.LamaticHero.createTrigger("hero-pin", {
+    trigger: scrollTrack,
+    start: "top top",
+    end: "bottom bottom",
+    pin: homeHero,
+    pinSpacing: false,
+    anticipatePin: 1,
+    invalidateOnRefresh: true
+  });
+
+  window.LamaticHero.refresh();
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
