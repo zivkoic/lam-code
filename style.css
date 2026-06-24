@@ -18,7 +18,23 @@
 }
 
 html {
+  min-height: 100%;
+  overflow-x: clip;
+  overflow-y: auto;
   scroll-behavior: auto !important;
+}
+
+body {
+  min-height: 100%;
+  overflow-x: clip;
+  overflow-y: auto;
+}
+
+.page-wrapper,
+.main-wrapper {
+  min-height: 100%;
+  height: auto;
+  overflow: visible;
 }
 
 .scroll-track {
