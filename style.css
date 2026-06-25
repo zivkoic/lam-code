@@ -2086,3 +2086,60 @@ body {
     padding: 0 16px !important;
   }
 }
+
+/* Mobile brain offset fix: the brain should occupy normal space inside the
+   container; avoid absolute top calculations that produce large computed bottom values. */
+@media (max-width: 767px) {
+  .container.is-hh .brian-video,
+  .container.is-hh .brain-video-wrap {
+    position: relative !important;
+    z-index: 12 !important;
+    width: min(66vw, 300px) !important;
+    max-width: 300px !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important;
+    margin: 75px auto 0 !important;
+    transform: none !important;
+    bottom: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  .container.is-hh .brain-video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+
+  .screen-middle-2.is-flexed .brain-overlay-embed {
+    position: absolute !important;
+    z-index: 30 !important;
+    pointer-events: none !important;
+    left: 50% !important;
+    top: calc(50% + 75px) !important;
+    width: min(66vw, 300px) !important;
+    max-width: 300px !important;
+    height: 210px !important;
+    transform: translateX(-50%) !important;
+    bottom: auto !important;
+    right: auto !important;
+    overflow: visible !important;
+  }
+
+  .screen-middle-2.is-flexed .brain-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .screen-middle-2.is-flexed .brain-path-svg {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: visible !important;
+  }
+}
