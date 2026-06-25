@@ -3,9 +3,15 @@
 
   root.triggerIds = root.triggerIds || [];
 
+  root.isDesktopHero = () => {
+    if (!window.matchMedia) return true;
+    return window.matchMedia("(min-width: 768px)").matches;
+  };
+
   root.createTrigger = (id, config) => {
     const existing = ScrollTrigger.getById(id);
     if (existing) existing.kill();
+
 
     const trigger = ScrollTrigger.create({
       id,
@@ -24,8 +30,26 @@
     requestAnimationFrame(() => ScrollTrigger.refresh());
   };
 
+  root.isTouchLike = () => {
+    return window.matchMedia && (
+      window.matchMedia("(max-width: 767px)").matches ||
+      window.matchMedia("(pointer: coarse)").matches
+    );
+  };
+
+  root.destroyLenis = () => {
+    if (!root.lenis) return;
+    if (root.lenisTicker && window.gsap) gsap.ticker.remove(root.lenisTicker);
+    root.lenis.destroy();
+    root.lenis = null;
+  };
+
   root.initLenis = (reduceMotion) => {
-    if (reduceMotion || !window.Lenis || root.lenis) return root.lenis || null;
+    if (reduceMotion || root.isTouchLike() || !window.Lenis) {
+      root.destroyLenis();
+      return null;
+    }
+    if (root.lenis) return root.lenis;
 
     root.lenis = new Lenis({
       duration: 0.9,
@@ -52,7 +76,23 @@
     return root.lenis;
   };
 
+  root.applyResponsiveState = () => {
+    const isDesktop = root.isDesktopHero();
+    document.documentElement.classList.toggle("lamatic-hero-mobile", !isDesktop);
+    document.documentElement.classList.toggle("lamatic-hero-desktop", isDesktop);
+
+    if (!isDesktop) {
+      root.destroyLenis();
+    }
+
+    root.refresh();
+  };
+
   window.addEventListener("load", root.refresh, { once: true });
+  window.addEventListener("resize", () => {
+    clearTimeout(root.resizeTimer);
+    root.resizeTimer = setTimeout(root.applyResponsiveState, 160);
+  });
 })();
 
 
@@ -64,18 +104,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const scrollTrack = document.querySelector(".scroll-track");
   const homeHero = document.querySelector(".home-hero");
 
+  window.LamaticHero.applyResponsiveState();
   if (!scrollTrack || !homeHero) return;
 
-  window.LamaticHero.createTrigger("hero-pin", {
-    trigger: scrollTrack,
-    start: "top top",
-    end: "bottom bottom",
-    pin: homeHero,
-    pinSpacing: false,
-    anticipatePin: 1,
-    invalidateOnRefresh: true
-  });
-
+  // Native CSS sticky is responsible for holding the hero in place.
+  // Keep this block limited to responsive state + refresh so ScrollTrigger
+  // progress can scrub the animation without adding GSAP pin wrappers.
   window.LamaticHero.refresh();
 });
 
@@ -395,6 +429,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setActiveIndex(activeIndex);
     setLineProgress(lineProgress);
+
+    if (hero) {
+      hero.setAttribute("data-mobile-step", String(activeIndex));
+    }
   };
 
   window.LamaticHero.createScrollTrigger("lamatic-hero-2", {
@@ -726,15 +764,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     hero.classList.remove("is-ingest", "is-process", "is-output", "is-settle");
 
+    let phase = "settle";
+
     if (sub < 0.20) {
-      hero.classList.add("is-ingest");
+      phase = "ingest";
     } else if (sub < 0.60) {
-      hero.classList.add("is-process");
+      phase = "process";
     } else if (sub < 0.92) {
-      hero.classList.add("is-output");
-    } else {
-      hero.classList.add("is-settle");
+      phase = "output";
     }
+
+    hero.classList.add(`is-${phase}`);
+    hero.setAttribute("data-mobile-phase", phase);
   };
 
   const update = (progress) => {
