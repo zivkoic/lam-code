@@ -1711,3 +1711,267 @@ body {
     width: 16px !important;
   }
 }
+
+/* Actual Webflow mobile hero stage. These rules target the embed wrappers that
+   sit directly inside .screen-middle-2.is-flexed so the simplified mobile
+   composition has breathing room while sticky + 400vh progress remain intact. */
+@media (max-width: 767px) {
+  .home-hero {
+    position: sticky !important;
+    top: 0 !important;
+    height: 100svh !important;
+    min-height: 100svh !important;
+    overflow: hidden !important;
+  }
+
+  .screen-middle-2.is-flexed {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100svh !important;
+    display: block !important;
+    overflow: hidden !important;
+  }
+
+  .connector-embed,
+  .connector-lines {
+    display: none !important;
+  }
+
+  .container.is-hh {
+    position: relative !important;
+    z-index: 5 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100svh !important;
+    display: block !important;
+    padding: 18px 16px 0 !important;
+    overflow: visible !important;
+  }
+
+  .hero-content,
+  .container.is-hh > :not(.brian-video):not(.brain-video-wrap) {
+    max-width: 100% !important;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .heading-style-h1 {
+    font-size: clamp(38px, 9.4vw, 58px) !important;
+    line-height: 0.98 !important;
+  }
+
+  .regular-paragraph {
+    max-width: 92vw !important;
+    font-size: clamp(15px, 4vw, 18px) !important;
+    line-height: 1.28 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .banking-left-embed {
+    position: absolute !important;
+    z-index: 25 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: clamp(200px, 30svh, 250px) !important;
+    width: 100% !important;
+    padding: 0 14px !important;
+    pointer-events: none;
+  }
+
+  .banking-left-embed .input-rail {
+    max-width: min(100%, 390px) !important;
+  }
+
+  .banking-left-embed .input-card-grid {
+    gap: 8px !important;
+  }
+
+  .banking-left-embed .input-card {
+    min-height: 76px !important;
+    padding: 10px 7px !important;
+    justify-content: center !important;
+  }
+
+  .banking-left-embed .tool-column-wrap {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 8px auto 0 !important;
+    transform: none !important;
+    z-index: 26 !important;
+  }
+
+  .banking-left-embed .tool-column {
+    flex-direction: row !important;
+    height: auto !important;
+    padding: 0 !important;
+    gap: 9px !important;
+  }
+
+  .brian-video,
+  .brain-video-wrap {
+    position: absolute !important;
+    z-index: 8 !important;
+    left: 50% !important;
+    top: clamp(342px, 52svh, 390px) !important;
+    width: min(66vw, 305px) !important;
+    max-width: 305px !important;
+    aspect-ratio: 16 / 9 !important;
+    height: auto !important;
+    margin: 0 !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .brain-video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  .brain-overlay-embed {
+    position: absolute !important;
+    z-index: 30 !important;
+    pointer-events: none !important;
+    left: 50% !important;
+    top: clamp(342px, 52svh, 390px) !important;
+    width: min(66vw, 305px) !important;
+    max-width: 305px !important;
+    aspect-ratio: 16 / 9 !important;
+    height: auto !important;
+    transform: translateX(-50%) !important;
+    overflow: visible !important;
+  }
+
+  .brain-overlay-embed .brain-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    overflow: visible !important;
+  }
+
+  .brain-overlay-embed .brain-path-svg {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: visible !important;
+  }
+
+  .brain-overlay-embed .brain-node,
+  .brain-overlay-embed .brain-path-active,
+  .brain-overlay-embed .brain-path-ghost,
+  .brain-overlay-embed .brain-path-glow-lg,
+  .brain-overlay-embed .brain-path-glow-md,
+  .brain-overlay-embed .brain-path-core {
+    display: initial !important;
+    visibility: visible !important;
+  }
+
+  .brain-overlay-embed .brain-path-active,
+  .brain-overlay-embed .brain-path-core {
+    opacity: 1 !important;
+  }
+
+  .brain-overlay-embed .brain-chip-wrap {
+    position: absolute !important;
+    display: inline-flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .brain-overlay-embed .brain-chip {
+    max-width: 96px !important;
+    padding: 5px 8px !important;
+    font-size: 9.5px !important;
+    line-height: 1.08 !important;
+  }
+
+  .banking-right {
+    position: absolute !important;
+    z-index: 18 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: clamp(58px, 9svh, 96px) !important;
+    width: 100% !important;
+    padding: 0 14px !important;
+    pointer-events: none;
+  }
+
+  .banking-right .outcome-rail {
+    max-width: min(100%, 390px) !important;
+  }
+
+  .banking-right .outcome-grid {
+    gap: 8px !important;
+  }
+
+  .banking-right .outcome-card {
+    min-height: 72px !important;
+    padding: 8px 6px !important;
+    justify-content: center !important;
+  }
+
+  .banking-right .outcome-card:nth-child(-n + 3) {
+    display: none !important;
+  }
+
+  .banking-right .outcome-card:nth-child(n + 4) {
+    display: flex !important;
+  }
+
+  .banking-right .outcome-dashboard,
+  .banking-right .outcome-stats {
+    display: none !important;
+  }
+
+  .trail-embed {
+    position: absolute !important;
+    z-index: 20 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 48px !important;
+    width: 100% !important;
+    padding: 0 14px !important;
+  }
+
+  .trail-embed .capability-chips {
+    margin-top: 0 !important;
+  }
+
+  .smart-approach-label {
+    position: absolute !important;
+    z-index: 20 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 28px !important;
+    margin: 0 auto !important;
+    font-size: 9px !important;
+    letter-spacing: 0.42em !important;
+    line-height: 1.25 !important;
+    text-align: center !important;
+  }
+
+  .trail-embed-category {
+    position: absolute !important;
+    z-index: 20 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 8px !important;
+    width: 100% !important;
+    padding: 0 14px !important;
+  }
+
+  .trail-embed-category .industry-indicator {
+    margin-top: 0 !important;
+  }
+}
