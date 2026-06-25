@@ -21,14 +21,24 @@ html {
   scroll-behavior: auto !important;
 }
 
+html,
+body {
+  min-height: 100%;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .scroll-track {
   position: relative;
   height: 400vh;
+  min-height: 400vh;
+  overflow: visible;
 }
 
 .home-hero {
-  position: sticky;
-  top: 0;
+  position: relative;
+  top: auto;
   height: 100vh;
   overflow: hidden;
 }

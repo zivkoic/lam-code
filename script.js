@@ -1,3 +1,84 @@
+(() => {
+  const root = window.LamaticHero = window.LamaticHero || {};
+
+  root.triggerIds = root.triggerIds || [];
+
+  root.createTrigger = (id, config) => {
+    const existing = ScrollTrigger.getById(id);
+    if (existing) existing.kill();
+
+    const trigger = ScrollTrigger.create({
+      id,
+      invalidateOnRefresh: true,
+      ...config
+    });
+
+    if (!root.triggerIds.includes(id)) root.triggerIds.push(id);
+
+    return trigger;
+  };
+
+  root.createScrollTrigger = root.createTrigger;
+
+  root.refresh = () => {
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  };
+
+  root.initLenis = (reduceMotion) => {
+    if (reduceMotion || !window.Lenis || root.lenis) return root.lenis || null;
+
+    root.lenis = new Lenis({
+      duration: 0.9,
+      easing: (t) => 1 - Math.pow(1 - t, 3),
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.4,
+      syncTouch: false
+    });
+
+    root.lenis.on("scroll", ScrollTrigger.update);
+
+    root.lenisTicker = root.lenisTicker || ((time) => {
+      root.lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.remove(root.lenisTicker);
+    gsap.ticker.add(root.lenisTicker);
+    gsap.ticker.lagSmoothing(0);
+
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+
+    return root.lenis;
+  };
+
+  window.addEventListener("load", root.refresh, { once: true });
+})();
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollTrack = document.querySelector(".scroll-track");
+  const homeHero = document.querySelector(".home-hero");
+
+  if (!scrollTrack || !homeHero) return;
+
+  window.LamaticHero.createTrigger("hero-pin", {
+    trigger: scrollTrack,
+    start: "top top",
+    end: "bottom bottom",
+    pin: homeHero,
+    pinSpacing: false,
+    anticipatePin: 1,
+    invalidateOnRefresh: true
+  });
+
+  window.LamaticHero.refresh();
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
 
@@ -15,26 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  let lenis = null;
-
-  if (!reduceMotion && window.Lenis) {
-    lenis = new Lenis({
-      duration: 0.9,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
-      smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.4,
-      syncTouch: false
-    });
-
-    lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
-    gsap.ticker.lagSmoothing(0);
-  }
+  window.LamaticHero.initLenis(reduceMotion);
 
   let pendingProgress = 0;
   let rafId = null;
@@ -84,6 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (e) {}
 
     scheduleSeek();
+    window.LamaticHero.refresh();
   };
 
   video.addEventListener("loadedmetadata", initVideo);
@@ -92,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initVideo();
   }
 
-  ScrollTrigger.create({
+  window.LamaticHero.createScrollTrigger("lamatic-hero-1", {
     trigger: scrollTrack,
     start: "top top",
     end: "bottom bottom",
@@ -103,13 +166,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  requestAnimationFrame(() => {
-    ScrollTrigger.refresh();
-  });
+  window.LamaticHero.refresh();
 
-  window.addEventListener("load", () => {
-    ScrollTrigger.refresh();
-  });
+  window.addEventListener("load", window.LamaticHero.refresh, { once: true });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -338,7 +397,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setLineProgress(lineProgress);
   };
 
-  ScrollTrigger.create({
+  window.LamaticHero.createScrollTrigger("lamatic-hero-2", {
     trigger: scrollTrack,
     start: "top top",
     end: "bottom bottom",
@@ -350,9 +409,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateBrainOverlay(0);
 
-  requestAnimationFrame(() => {
-    ScrollTrigger.refresh();
-  });
+  window.LamaticHero.refresh();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -708,7 +765,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setIndustry("banking");
   setPreviewState();
 
-  ScrollTrigger.create({
+  window.LamaticHero.createScrollTrigger("lamatic-hero-3", {
     trigger: scrollTrack,
     start: "top top",
     end: "bottom bottom",
@@ -718,13 +775,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  requestAnimationFrame(() => {
-    ScrollTrigger.refresh();
-  });
+  window.LamaticHero.refresh();
 
-  window.addEventListener("load", () => {
-    ScrollTrigger.refresh();
-  });
+  window.addEventListener("load", window.LamaticHero.refresh, { once: true });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -1018,7 +1071,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setInputContent("banking");
   setPhase("ingest");
 
-  ScrollTrigger.create({
+  window.LamaticHero.createScrollTrigger("lamatic-hero-4", {
     trigger: scrollTrack,
     start: "top top",
     end: "bottom bottom",
@@ -1028,13 +1081,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  requestAnimationFrame(() => {
-    ScrollTrigger.refresh();
-  });
+  window.LamaticHero.refresh();
 
-  window.addEventListener("load", () => {
-    ScrollTrigger.refresh();
-  });
+  window.addEventListener("load", window.LamaticHero.refresh, { once: true });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -1188,7 +1237,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setIndustry("banking");
   setMode("preview");
 
-  ScrollTrigger.create({
+  window.LamaticHero.createScrollTrigger("lamatic-hero-5", {
     trigger: scrollTrack,
     start: "top top",
     end: "bottom bottom",
@@ -1198,13 +1247,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  requestAnimationFrame(() => {
-    ScrollTrigger.refresh();
-  });
+  window.LamaticHero.refresh();
 
-  window.addEventListener("load", () => {
-    ScrollTrigger.refresh();
-  });
+  window.addEventListener("load", window.LamaticHero.refresh, { once: true });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -1248,7 +1293,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setIndustry("banking");
 
-  ScrollTrigger.create({
+  window.LamaticHero.createScrollTrigger("lamatic-hero-6", {
     trigger: scrollTrack,
     start: "top top",
     end: "bottom bottom",
@@ -1259,11 +1304,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  requestAnimationFrame(() => {
-    ScrollTrigger.refresh();
-  });
+  window.LamaticHero.refresh();
 
-  window.addEventListener("load", () => {
-    ScrollTrigger.refresh();
-  });
+  window.addEventListener("load", window.LamaticHero.refresh, { once: true });
 });
