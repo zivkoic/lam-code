@@ -2094,8 +2094,8 @@ body {
   .container.is-hh .brain-video-wrap {
     position: relative !important;
     z-index: 12 !important;
-    width: min(66vw, 300px) !important;
-    max-width: 300px !important;
+    width: min(72vw, 340px) !important;
+    max-width: 340px !important;
     height: auto !important;
     aspect-ratio: 16 / 9 !important;
     margin: 75px auto 0 !important;
@@ -2119,9 +2119,9 @@ body {
     pointer-events: none !important;
     left: 50% !important;
     top: calc(50% + 75px) !important;
-    width: min(66vw, 300px) !important;
-    max-width: 300px !important;
-    height: 210px !important;
+    width: min(72vw, 340px) !important;
+    max-width: 340px !important;
+    height: 235px !important;
     transform: translateX(-50%) !important;
     bottom: auto !important;
     right: auto !important;
