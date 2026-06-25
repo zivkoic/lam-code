@@ -3,9 +3,21 @@
 
   root.triggerIds = root.triggerIds || [];
 
+  root.isDesktopHero = () => {
+    if (!window.matchMedia) return true;
+    return window.matchMedia("(min-width: 768px)").matches;
+  };
+
   root.createTrigger = (id, config) => {
     const existing = ScrollTrigger.getById(id);
     if (existing) existing.kill();
+
+    // The original React hero keeps the cinematic pinned/scrubbed flow for
+    // md+ viewports, while phones use a compact normal-flow composition.
+    // Keep Webflow mobile scrolling native by not creating hero ScrollTriggers.
+    if (id && String(id).indexOf("hero") !== -1 && !root.isDesktopHero()) {
+      return null;
+    }
 
     const trigger = ScrollTrigger.create({
       id,
@@ -24,8 +36,26 @@
     requestAnimationFrame(() => ScrollTrigger.refresh());
   };
 
+  root.isTouchLike = () => {
+    return window.matchMedia && (
+      window.matchMedia("(max-width: 767px)").matches ||
+      window.matchMedia("(pointer: coarse)").matches
+    );
+  };
+
+  root.destroyLenis = () => {
+    if (!root.lenis) return;
+    if (root.lenisTicker && window.gsap) gsap.ticker.remove(root.lenisTicker);
+    root.lenis.destroy();
+    root.lenis = null;
+  };
+
   root.initLenis = (reduceMotion) => {
-    if (reduceMotion || !window.Lenis || root.lenis) return root.lenis || null;
+    if (reduceMotion || root.isTouchLike() || !window.Lenis) {
+      root.destroyLenis();
+      return null;
+    }
+    if (root.lenis) return root.lenis;
 
     root.lenis = new Lenis({
       duration: 0.9,
@@ -52,7 +82,27 @@
     return root.lenis;
   };
 
+  root.applyResponsiveState = () => {
+    const isDesktop = root.isDesktopHero();
+    document.documentElement.classList.toggle("lamatic-hero-mobile", !isDesktop);
+    document.documentElement.classList.toggle("lamatic-hero-desktop", isDesktop);
+
+    if (!isDesktop) {
+      root.destroyLenis();
+      (root.triggerIds || []).forEach((id) => {
+        const trigger = ScrollTrigger.getById(id);
+        if (trigger && String(id).indexOf("hero") !== -1) trigger.kill();
+      });
+    }
+
+    root.refresh();
+  };
+
   window.addEventListener("load", root.refresh, { once: true });
+  window.addEventListener("resize", () => {
+    clearTimeout(root.resizeTimer);
+    root.resizeTimer = setTimeout(root.applyResponsiveState, 160);
+  });
 })();
 
 
@@ -64,7 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const scrollTrack = document.querySelector(".scroll-track");
   const homeHero = document.querySelector(".home-hero");
 
-  if (!scrollTrack || !homeHero) return;
+  window.LamaticHero.applyResponsiveState();
+  if (!scrollTrack || !homeHero || !window.LamaticHero.isDesktopHero()) return;
 
   window.LamaticHero.createTrigger("hero-pin", {
     trigger: scrollTrack,
