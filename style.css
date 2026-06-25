@@ -37,8 +37,8 @@ body {
 }
 
 .home-hero {
-  position: relative;
-  top: auto;
+  position: sticky;
+  top: 0;
   height: 100vh;
   overflow: hidden;
 }
@@ -1718,5 +1718,51 @@ body {
 
   .industry-indicator-line {
     width: 16px !important;
+  }
+}
+
+/* Sticky-safe baseline: native sticky works in Webflow preview, so keep every
+   parent of .home-hero visible/untransformed and let only .home-hero clip art. */
+.scroll-track {
+  position: relative !important;
+  height: 400vh !important;
+  min-height: 400vh !important;
+  overflow: visible !important;
+  transform: none !important;
+  contain: none !important;
+  perspective: none !important;
+  filter: none !important;
+  will-change: auto !important;
+}
+
+.screen-middle-2,
+.container.is-hh {
+  overflow: visible !important;
+  transform: none !important;
+  contain: none !important;
+  perspective: none !important;
+  filter: none !important;
+  will-change: auto !important;
+}
+
+.home-hero {
+  position: sticky !important;
+  top: 0 !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  transform: none !important;
+  contain: none !important;
+  perspective: none !important;
+  filter: none !important;
+}
+
+@supports (height: 100svh) {
+  @media (max-width: 767px) {
+    .home-hero {
+      height: 100svh !important;
+      min-height: 100svh !important;
+    }
   }
 }

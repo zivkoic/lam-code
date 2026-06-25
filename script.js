@@ -107,43 +107,9 @@ document.addEventListener("DOMContentLoaded", () => {
   window.LamaticHero.applyResponsiveState();
   if (!scrollTrack || !homeHero) return;
 
-  const killPin = (id) => {
-    const trigger = ScrollTrigger.getById(id);
-    if (trigger) trigger.kill();
-  };
-
-  const mm = gsap.matchMedia();
-
-  mm.add("(min-width: 768px)", () => {
-    killPin("hero-pin-mobile");
-    window.LamaticHero.createTrigger("hero-pin", {
-      trigger: scrollTrack,
-      start: "top top",
-      end: "bottom bottom",
-      pin: homeHero,
-      pinSpacing: false,
-      anticipatePin: 1,
-      invalidateOnRefresh: true
-    });
-    window.LamaticHero.refresh();
-    return () => killPin("hero-pin");
-  });
-
-  mm.add("(max-width: 767px)", () => {
-    killPin("hero-pin");
-    window.LamaticHero.createTrigger("hero-pin-mobile", {
-      trigger: scrollTrack,
-      start: "top top",
-      end: "bottom bottom",
-      pin: homeHero,
-      pinSpacing: false,
-      anticipatePin: 1,
-      invalidateOnRefresh: true
-    });
-    window.LamaticHero.refresh();
-    return () => killPin("hero-pin-mobile");
-  });
-
+  // Native CSS sticky is responsible for holding the hero in place.
+  // Keep this block limited to responsive state + refresh so ScrollTrigger
+  // progress can scrub the animation without adding GSAP pin wrappers.
   window.LamaticHero.refresh();
 });
 
