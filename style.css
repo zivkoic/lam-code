@@ -1975,3 +1975,114 @@ body {
     margin-top: 0 !important;
   }
 }
+
+/* Final mobile ordering pass: use the actual Webflow wrappers as ordered rows
+   while keeping the brain/video and overlay locked to the same centered slot. */
+@media (max-width: 767px) {
+  .screen-middle-2.is-flexed {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    position: relative !important;
+    min-height: 100svh !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .container.is-hh {
+    order: 1 !important;
+    position: static !important;
+    z-index: 10 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 20px 18px 0 !important;
+    text-align: center !important;
+  }
+
+  .banking-left-embed {
+    order: 2 !important;
+    position: relative !important;
+    z-index: 25 !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    margin-top: 14px !important;
+    padding: 0 16px !important;
+  }
+
+  .banking-left-embed .tool-column-wrap {
+    margin-top: 10px !important;
+  }
+
+  .container.is-hh .brian-video,
+  .container.is-hh .brain-video-wrap {
+    position: absolute !important;
+    z-index: 12 !important;
+    left: 50% !important;
+    top: clamp(342px, 52svh, 390px) !important;
+    width: min(64vw, 300px) !important;
+    max-width: 300px !important;
+    margin: 0 !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .brain-overlay-embed {
+    position: absolute !important;
+    z-index: 30 !important;
+    left: 50% !important;
+    top: clamp(342px, 52svh, 390px) !important;
+    width: min(64vw, 300px) !important;
+    max-width: 300px !important;
+    transform: translateX(-50%) !important;
+    pointer-events: none !important;
+  }
+
+  .banking-right {
+    order: 4 !important;
+    position: relative !important;
+    z-index: 18 !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    margin-top: clamp(176px, 26svh, 218px) !important;
+    padding: 0 16px !important;
+  }
+
+  .trail-embed {
+    order: 5 !important;
+    position: relative !important;
+    z-index: 20 !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+    padding: 0 16px !important;
+  }
+
+  .smart-approach-label {
+    order: 6 !important;
+    position: relative !important;
+    z-index: 20 !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 8px auto 0 !important;
+  }
+
+  .trail-embed-category {
+    order: 7 !important;
+    position: relative !important;
+    z-index: 20 !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    margin-top: 6px !important;
+    padding: 0 16px !important;
+  }
+}
