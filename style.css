@@ -1222,6 +1222,19 @@ body {
     min-height: auto !important;
     overflow: visible !important;
     transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    isolation: isolate;
+  }
+
+  .home-hero h1,
+  .home-hero h2,
+  .home-hero p,
+  .home-hero .smart-approach-label {
+    position: relative !important;
+    z-index: 20 !important;
+    text-align: center;
   }
 
   .screen-middle-2,
@@ -1239,21 +1252,148 @@ body {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: 18px !important;
-    padding: 24px 16px 32px !important;
+    gap: 14px !important;
+    padding: 20px 14px 32px !important;
+    z-index: 1;
+  }
+
+  .input-rail {
+    order: 1;
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    max-width: min(100%, 560px) !important;
+    height: auto !important;
+    max-height: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    margin: 0 auto !important;
+    z-index: 2 !important;
+  }
+
+  .input-panel {
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .input-panel-header {
+    display: none !important;
+  }
+
+  .input-card-grid {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .input-card {
+    height: auto !important;
+    min-height: 84px !important;
+    padding: 9px 7px !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: center !important;
+    gap: 6px !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .input-card:nth-child(-n + 3) {
+    display: none !important;
+  }
+
+  .input-card-icon,
+  .input-card-icon-wrap {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .input-card-text {
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .input-card-title {
+    font-size: 10.5px !important;
+    line-height: 1.15 !important;
+    -webkit-line-clamp: 3;
+  }
+
+  .input-card-subtitle {
+    max-width: 100%;
+    font-size: 8.5px !important;
+  }
+
+  .tool-column-wrap {
+    order: 2;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    max-width: min(100%, 360px) !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    pointer-events: none;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    margin: 2px auto 0 !important;
+    z-index: 2 !important;
+  }
+
+  .tool-column {
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+  }
+
+  .tool-icon {
+    width: 34px !important;
+    height: 34px !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .connector-lines {
+    display: none !important;
   }
 
   .brian-video,
   .brain-video-wrap {
+    order: 3;
     position: relative !important;
     inset: auto !important;
-    width: min(100%, 540px) !important;
+    width: min(100%, 520px) !important;
     aspect-ratio: 16 / 9 !important;
     height: auto !important;
     max-height: none !important;
-    order: 2;
     overflow: visible !important;
     transform: none !important;
+    margin: 4px auto 0 !important;
+    z-index: 1 !important;
   }
 
   .brian-video video,
@@ -1269,6 +1409,7 @@ body {
     height: 100% !important;
     pointer-events: none !important;
     transform: none !important;
+    display: block !important;
   }
 
   .brain-path-svg,
@@ -1282,88 +1423,145 @@ body {
   }
 
   .brain-chip-wrap {
-    position: static !important;
+    position: absolute !important;
     display: inline-flex !important;
     opacity: 1 !important;
     visibility: visible !important;
-    transform: none !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 3 !important;
   }
 
-  .brain-overlay {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    gap: 8px !important;
-    padding-bottom: 8px !important;
-  }
+  .brain-chip-1 { left: 32% !important; top: 30% !important; }
+  .brain-chip-2 { left: 50% !important; top: 15% !important; }
+  .brain-chip-3 { left: 68% !important; top: 30% !important; }
+  .brain-chip-4 { left: 52% !important; top: 66% !important; }
 
   .brain-chip {
-    max-width: calc(100vw - 48px);
+    max-width: 112px;
+    padding: 5px 8px !important;
+    font-size: 9.5px !important;
+    line-height: 1.1 !important;
     white-space: normal;
     text-align: center;
     box-shadow: 0 8px 22px -16px rgba(243, 55, 54, 0.45);
   }
 
-  .input-rail,
-  .outcome-rail,
-  .capability-chips,
-  .industry-indicator {
+  .outcome-rail {
+    order: 4;
     position: relative !important;
     inset: auto !important;
-    order: initial;
+    width: 100% !important;
+    max-width: min(100%, 560px) !important;
+    height: auto !important;
+    max-height: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 0 !important;
     transform: none !important;
     opacity: 1 !important;
     visibility: visible !important;
     filter: none !important;
-    max-width: min(100%, 540px) !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin: 4px auto 0 !important;
+    z-index: 2 !important;
   }
 
-  .input-rail {
-    order: 1;
+  .outcome-grid {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
   }
 
-  .outcome-rail {
-    order: 3;
+  .outcome-card {
+    height: auto !important;
+    min-height: 86px !important;
+    padding: 9px 7px !important;
+    align-items: center !important;
+    text-align: center !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .outcome-card:nth-child(n + 4),
+  .outcome-dashboard,
+  .outcome-stats {
+    display: none !important;
+  }
+
+  .outcome-title {
+    font-size: 10px !important;
+    line-height: 1.15 !important;
   }
 
   .capability-chips {
-    order: 4;
+    order: 5;
+    position: relative !important;
+    inset: auto !important;
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
+    gap: 6px !important;
     width: 100% !important;
+    max-width: min(100%, 560px) !important;
+    margin: 4px auto 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .capability-chip {
+    min-height: 24px !important;
+    padding: 5px 8px !important;
+    font-size: 10px !important;
+    white-space: normal !important;
+    text-align: center !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .industry-indicator {
-    order: 5;
+    order: 6;
+    position: relative !important;
+    inset: auto !important;
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
     gap: 10px 12px !important;
     width: 100% !important;
+    max-width: min(100%, 560px) !important;
+    margin: 4px auto 0 !important;
+    padding-bottom: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 
   .industry-indicator-line {
     width: 22px;
   }
+}
 
-  .connector-lines,
-  .tool-column-wrap {
-    display: none !important;
+@media (max-width: 767px) {
+  .input-rail.is-active,
+  .input-rail.is-dimmed,
+  .tool-column-wrap.is-active,
+  .tool-column-wrap.is-dimmed,
+  .tool-column-wrap.is-switching,
+  .home-hero.is-output .outcome-rail,
+  .home-hero.is-settle .outcome-rail,
+  .capability-chips.is-preview,
+  .capability-chips.is-active {
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
   }
 
-  .outcome-grid,
-  .outcome-metrics-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .outcome-dashboard,
-  .outcome-stats,
-  .outcome-card,
-  .capability-chip {
+  .input-rail.is-switching .input-panel-icon,
+  .input-rail.is-switching .input-panel-label,
+  .input-rail.is-switching .input-card,
+  .tool-column-wrap.is-switching .tool-icon,
+  .capability-chips.is-switching .capability-chip {
     opacity: 1 !important;
     transform: none !important;
   }
