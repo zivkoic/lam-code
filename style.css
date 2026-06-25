@@ -1566,3 +1566,157 @@ body {
     transform: none !important;
   }
 }
+
+/* Mobile pinned-scroll refinements: keep the simplified mobile composition,
+   but restore the 400vh scroll distance and fit the pinned frame. */
+@media (max-width: 767px) {
+  .scroll-track {
+    position: relative !important;
+    height: 400vh !important;
+    min-height: 400vh !important;
+    overflow: visible !important;
+  }
+
+  .home-hero {
+    height: 100svh !important;
+    min-height: 100svh !important;
+    max-height: 100svh !important;
+    overflow: hidden !important;
+  }
+
+  .container.is-hh {
+    gap: 6px !important;
+    padding: 8px 12px 12px !important;
+  }
+
+  .input-rail,
+  .outcome-rail,
+  .capability-chips,
+  .industry-indicator {
+    max-width: min(100%, 380px) !important;
+  }
+
+  .input-card-grid,
+  .outcome-grid {
+    gap: 6px !important;
+  }
+
+  .input-card {
+    min-height: 62px !important;
+    padding: 6px 5px !important;
+    gap: 4px !important;
+  }
+
+  .input-card-icon,
+  .input-card-icon-wrap {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .input-card-icon-wrap svg,
+  .input-card-icon svg {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .input-card-title {
+    font-size: 9.5px !important;
+    line-height: 1.1 !important;
+    -webkit-line-clamp: 2;
+  }
+
+  .input-card-subtitle {
+    display: none !important;
+  }
+
+  .tool-column-wrap {
+    max-width: min(100%, 240px) !important;
+    margin-top: 2px !important;
+  }
+
+  .tool-column {
+    gap: 8px !important;
+  }
+
+  .tool-icon {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .tool-icon svg {
+    width: 27px !important;
+    height: 27px !important;
+  }
+
+  .brian-video,
+  .brain-video-wrap {
+    width: min(72vw, 300px) !important;
+    max-width: 300px !important;
+    margin-top: 2px !important;
+    transform: none !important;
+  }
+
+  .brain-stage,
+  .brain-visual {
+    transform: scale(0.86) !important;
+    transform-origin: center center !important;
+  }
+
+  .brain-overlay {
+    transform: none !important;
+    transform-origin: center center !important;
+  }
+
+  .brain-chip {
+    max-width: 92px !important;
+    padding: 4px 7px !important;
+    font-size: 8.5px !important;
+    line-height: 1.05 !important;
+  }
+
+  .brain-chip svg,
+  .brain-chip-icon svg {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  .outcome-card {
+    min-height: 60px !important;
+    padding: 6px 5px !important;
+    gap: 4px !important;
+  }
+
+  .outcome-icon {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .outcome-title {
+    font-size: 9px !important;
+    line-height: 1.1 !important;
+  }
+
+  .capability-chips {
+    gap: 4px !important;
+    margin-top: 2px !important;
+  }
+
+  .capability-chip {
+    min-height: 20px !important;
+    padding: 4px 7px !important;
+    font-size: 9px !important;
+  }
+
+  .industry-indicator {
+    gap: 6px 8px !important;
+    margin-top: 2px !important;
+  }
+
+  .industry-indicator-label {
+    font-size: 8.5px !important;
+  }
+
+  .industry-indicator-line {
+    width: 16px !important;
+  }
+}

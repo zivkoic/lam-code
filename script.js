@@ -12,12 +12,6 @@
     const existing = ScrollTrigger.getById(id);
     if (existing) existing.kill();
 
-    // The original React hero keeps the cinematic pinned/scrubbed flow for
-    // md+ viewports, while phones use a compact normal-flow composition.
-    // Keep Webflow mobile scrolling native by not creating hero ScrollTriggers.
-    if (id && String(id).indexOf("hero") !== -1 && !root.isDesktopHero()) {
-      return null;
-    }
 
     const trigger = ScrollTrigger.create({
       id,
@@ -89,10 +83,6 @@
 
     if (!isDesktop) {
       root.destroyLenis();
-      (root.triggerIds || []).forEach((id) => {
-        const trigger = ScrollTrigger.getById(id);
-        if (trigger && String(id).indexOf("hero") !== -1) trigger.kill();
-      });
     }
 
     root.refresh();
@@ -115,16 +105,43 @@ document.addEventListener("DOMContentLoaded", () => {
   const homeHero = document.querySelector(".home-hero");
 
   window.LamaticHero.applyResponsiveState();
-  if (!scrollTrack || !homeHero || !window.LamaticHero.isDesktopHero()) return;
+  if (!scrollTrack || !homeHero) return;
 
-  window.LamaticHero.createTrigger("hero-pin", {
-    trigger: scrollTrack,
-    start: "top top",
-    end: "bottom bottom",
-    pin: homeHero,
-    pinSpacing: false,
-    anticipatePin: 1,
-    invalidateOnRefresh: true
+  const killPin = (id) => {
+    const trigger = ScrollTrigger.getById(id);
+    if (trigger) trigger.kill();
+  };
+
+  const mm = gsap.matchMedia();
+
+  mm.add("(min-width: 768px)", () => {
+    killPin("hero-pin-mobile");
+    window.LamaticHero.createTrigger("hero-pin", {
+      trigger: scrollTrack,
+      start: "top top",
+      end: "bottom bottom",
+      pin: homeHero,
+      pinSpacing: false,
+      anticipatePin: 1,
+      invalidateOnRefresh: true
+    });
+    window.LamaticHero.refresh();
+    return () => killPin("hero-pin");
+  });
+
+  mm.add("(max-width: 767px)", () => {
+    killPin("hero-pin");
+    window.LamaticHero.createTrigger("hero-pin-mobile", {
+      trigger: scrollTrack,
+      start: "top top",
+      end: "bottom bottom",
+      pin: homeHero,
+      pinSpacing: false,
+      anticipatePin: 1,
+      invalidateOnRefresh: true
+    });
+    window.LamaticHero.refresh();
+    return () => killPin("hero-pin-mobile");
   });
 
   window.LamaticHero.refresh();
