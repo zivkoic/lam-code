@@ -429,6 +429,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setActiveIndex(activeIndex);
     setLineProgress(lineProgress);
+
+    if (hero) {
+      hero.setAttribute("data-mobile-step", String(activeIndex));
+    }
   };
 
   window.LamaticHero.createScrollTrigger("lamatic-hero-2", {
@@ -760,15 +764,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     hero.classList.remove("is-ingest", "is-process", "is-output", "is-settle");
 
+    let phase = "settle";
+
     if (sub < 0.20) {
-      hero.classList.add("is-ingest");
+      phase = "ingest";
     } else if (sub < 0.60) {
-      hero.classList.add("is-process");
+      phase = "process";
     } else if (sub < 0.92) {
-      hero.classList.add("is-output");
-    } else {
-      hero.classList.add("is-settle");
+      phase = "output";
     }
+
+    hero.classList.add(`is-${phase}`);
+    hero.setAttribute("data-mobile-phase", phase);
   };
 
   const update = (progress) => {

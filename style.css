@@ -2143,3 +2143,83 @@ body {
     overflow: visible !important;
   }
 }
+
+/* Mobile phase emphasis: industry content already swaps by scroll progress;
+   these phase states make the top/bottom assets evolve inside each industry. */
+@media (max-width: 767px) {
+  .home-hero[data-mobile-phase] .banking-left-embed,
+  .home-hero[data-mobile-phase] .brain-overlay-embed,
+  .home-hero[data-mobile-phase] .banking-right,
+  .home-hero[data-mobile-phase] .trail-embed,
+  .home-hero[data-mobile-phase] .trail-embed-category {
+    transition:
+      opacity 320ms ease,
+      transform 420ms var(--ease-out),
+      filter 320ms ease;
+  }
+
+  .home-hero[data-mobile-phase="ingest"] .banking-left-embed {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    filter: none !important;
+  }
+
+  .home-hero[data-mobile-phase="ingest"] .brain-overlay-embed {
+    opacity: 0.62 !important;
+  }
+
+  .home-hero[data-mobile-phase="ingest"] .banking-right {
+    opacity: 0.26 !important;
+    transform: translateY(8px) scale(0.96) !important;
+    filter: saturate(0.9) !important;
+  }
+
+  .home-hero[data-mobile-phase="ingest"] .trail-embed,
+  .home-hero[data-mobile-phase="ingest"] .trail-embed-category {
+    opacity: 0.46 !important;
+  }
+
+  .home-hero[data-mobile-phase="process"] .banking-left-embed {
+    opacity: 0.62 !important;
+    transform: translateY(-4px) scale(0.98) !important;
+  }
+
+  .home-hero[data-mobile-phase="process"] .brain-overlay-embed {
+    opacity: 1 !important;
+  }
+
+  .home-hero[data-mobile-phase="process"] .banking-right {
+    opacity: 0.38 !important;
+    transform: translateY(6px) scale(0.97) !important;
+  }
+
+  .home-hero[data-mobile-phase="process"] .trail-embed,
+  .home-hero[data-mobile-phase="process"] .trail-embed-category {
+    opacity: 0.58 !important;
+  }
+
+  .home-hero[data-mobile-phase="output"] .banking-left-embed,
+  .home-hero[data-mobile-phase="settle"] .banking-left-embed {
+    opacity: 0.42 !important;
+    transform: translateY(-6px) scale(0.96) !important;
+  }
+
+  .home-hero[data-mobile-phase="output"] .brain-overlay-embed,
+  .home-hero[data-mobile-phase="settle"] .brain-overlay-embed {
+    opacity: 0.92 !important;
+  }
+
+  .home-hero[data-mobile-phase="output"] .banking-right,
+  .home-hero[data-mobile-phase="settle"] .banking-right {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    filter: none !important;
+  }
+
+  .home-hero[data-mobile-phase="output"] .trail-embed,
+  .home-hero[data-mobile-phase="output"] .trail-embed-category,
+  .home-hero[data-mobile-phase="settle"] .trail-embed,
+  .home-hero[data-mobile-phase="settle"] .trail-embed-category {
+    opacity: 1 !important;
+  }
+}
