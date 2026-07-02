@@ -2120,9 +2120,25 @@ body {
     pointer-events: none;
   }
 
+  .banking-left-embed,
+  .input-rail,
+  .input-panel,
+  .input-card-grid {
+    position: relative !important;
+    z-index: 60 !important;
+  }
+
+  .input-card {
+    position: relative !important;
+    z-index: 70 !important;
+    background: #ffffff !important;
+  }
+
   .tool-column,
   .banking-left-embed .tool-column {
     display: flex !important;
+    position: relative !important;
+    z-index: 5 !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
@@ -2175,6 +2191,7 @@ body {
       no-repeat,
       repeat;
     animation: mobileToolConnectorComet 1.6s linear infinite;
+    z-index: 1 !important;
   }
 
   .tool-column-wrap::before {
