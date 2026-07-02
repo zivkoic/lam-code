@@ -1712,9 +1712,7 @@ body {
   }
 }
 
-/* Actual Webflow mobile hero stage. These rules target the embed wrappers that
-   sit directly inside .screen-middle-2.is-flexed so the simplified mobile
-   composition has breathing room while sticky + 400vh progress remain intact. */
+/* Mobile hero flow layout. Desktop remains handled by the base/Webflow rules above. */
 @media (max-width: 767px) {
   .home-hero {
     position: sticky !important;
@@ -1726,11 +1724,16 @@ body {
 
   .screen-middle-2.is-flexed {
     position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
     width: 100% !important;
     height: 100% !important;
     min-height: 100svh !important;
-    display: block !important;
     overflow: hidden !important;
+    padding: 32px 18px 20px !important;
+    gap: 16px !important;
   }
 
   .connector-embed,
@@ -1739,13 +1742,16 @@ body {
   }
 
   .container.is-hh {
+    order: 1 !important;
     position: relative !important;
-    z-index: 5 !important;
     width: 100% !important;
-    height: 100% !important;
-    min-height: 100svh !important;
-    display: block !important;
-    padding: 18px 16px 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: center !important;
+    z-index: 10 !important;
     overflow: visible !important;
   }
 
@@ -1770,85 +1776,77 @@ body {
     margin-right: auto !important;
   }
 
-  .banking-left-embed {
-    position: absolute !important;
-    z-index: 25 !important;
-    left: 0 !important;
-    right: 0 !important;
-    top: clamp(200px, 30svh, 250px) !important;
-    width: 100% !important;
-    padding: 0 14px !important;
-    pointer-events: none;
-  }
-
-  .banking-left-embed .input-rail {
-    max-width: min(100%, 390px) !important;
-  }
-
-  .banking-left-embed .input-card-grid {
-    gap: 8px !important;
-  }
-
-  .banking-left-embed .input-card {
-    min-height: 76px !important;
-    padding: 10px 7px !important;
-    justify-content: center !important;
-  }
-
-  .banking-left-embed .tool-column-wrap {
+  .banking-left-embed,
+  .banking-right,
+  .trail-embed,
+  .smart-approach-label,
+  .trail-embed-category {
     position: relative !important;
     top: auto !important;
     right: auto !important;
+    bottom: auto !important;
     left: auto !important;
-    width: auto !important;
-    height: auto !important;
-    margin: 8px auto 0 !important;
-    transform: none !important;
-    z-index: 26 !important;
-  }
-
-  .banking-left-embed .tool-column {
-    flex-direction: row !important;
-    height: auto !important;
-    padding: 0 !important;
-    gap: 9px !important;
-  }
-
-  .brian-video,
-  .brain-video-wrap {
-    position: absolute !important;
-    z-index: 8 !important;
-    left: 50% !important;
-    top: clamp(342px, 52svh, 390px) !important;
-    width: min(66vw, 305px) !important;
-    max-width: 305px !important;
-    aspect-ratio: 16 / 9 !important;
-    height: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 !important;
-    transform: translateX(-50%) !important;
+    padding: 0 !important;
+    transform: none !important;
   }
 
-  .brain-video {
+  .banking-left-embed {
+    order: 2 !important;
+    z-index: 20 !important;
+    pointer-events: none;
+  }
+
+  .mobile-brain-stack {
+    order: 3 !important;
+    position: relative !important;
+    width: min(76vw, 340px) !important;
+    max-width: 340px !important;
+    margin: 8px auto 0 !important;
+    aspect-ratio: 16 / 9 !important;
+    z-index: 10 !important;
+    flex: 0 0 auto !important;
+  }
+
+  .mobile-brain-stack .brian-video,
+  .mobile-brain-stack .brain-video-wrap {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+    margin: 0 !important;
+    transform: none !important;
+    z-index: 10 !important;
+  }
+
+  .mobile-brain-stack .brain-video,
+  .mobile-brain-stack .brian-video video {
     width: 100% !important;
     height: 100% !important;
     object-fit: contain !important;
+    object-position: center !important;
   }
 
-  .brain-overlay-embed {
+  .mobile-brain-stack .brain-overlay-embed {
+    order: 0 !important;
     position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
     z-index: 30 !important;
     pointer-events: none !important;
-    left: 50% !important;
-    top: clamp(342px, 52svh, 390px) !important;
-    width: min(66vw, 305px) !important;
-    max-width: 305px !important;
-    aspect-ratio: 16 / 9 !important;
-    height: auto !important;
-    transform: translateX(-50%) !important;
     overflow: visible !important;
   }
 
-  .brain-overlay-embed .brain-overlay {
+  .brain-overlay-embed .brain-overlay,
+  .screen-middle-2.is-flexed .brain-overlay {
     position: absolute !important;
     inset: 0 !important;
     width: 100% !important;
@@ -1859,7 +1857,8 @@ body {
     overflow: visible !important;
   }
 
-  .brain-overlay-embed .brain-path-svg {
+  .brain-overlay-embed .brain-path-svg,
+  .screen-middle-2.is-flexed .brain-path-svg {
     display: block !important;
     width: 100% !important;
     height: 100% !important;
@@ -1896,23 +1895,48 @@ body {
     line-height: 1.08 !important;
   }
 
-  .banking-right {
-    position: absolute !important;
-    z-index: 18 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: clamp(58px, 9svh, 96px) !important;
-    width: 100% !important;
-    padding: 0 14px !important;
-    pointer-events: none;
-  }
-
+  .banking-left-embed .input-rail,
   .banking-right .outcome-rail {
     max-width: min(100%, 390px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
+  .banking-left-embed .input-card-grid,
   .banking-right .outcome-grid {
     gap: 8px !important;
+  }
+
+  .banking-left-embed .input-card {
+    min-height: 76px !important;
+    padding: 10px 7px !important;
+    justify-content: center !important;
+  }
+
+  .banking-left-embed .tool-column-wrap {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 10px auto 0 !important;
+    transform: none !important;
+    z-index: 21 !important;
+  }
+
+  .banking-left-embed .tool-column {
+    flex-direction: row !important;
+    height: auto !important;
+    padding: 0 !important;
+    gap: 9px !important;
+  }
+
+  .banking-right {
+    order: 4 !important;
+    z-index: 15 !important;
+    pointer-events: none;
   }
 
   .banking-right .outcome-card {
@@ -1935,26 +1959,18 @@ body {
   }
 
   .trail-embed {
-    position: absolute !important;
+    order: 5 !important;
     z-index: 20 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 48px !important;
-    width: 100% !important;
-    padding: 0 14px !important;
   }
 
-  .trail-embed .capability-chips {
+  .trail-embed .capability-chips,
+  .trail-embed-category .industry-indicator {
     margin-top: 0 !important;
   }
 
   .smart-approach-label {
-    position: absolute !important;
+    order: 6 !important;
     z-index: 20 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 28px !important;
-    margin: 0 auto !important;
     font-size: 9px !important;
     letter-spacing: 0.42em !important;
     line-height: 1.25 !important;
@@ -1962,185 +1978,8 @@ body {
   }
 
   .trail-embed-category {
-    position: absolute !important;
-    z-index: 20 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 8px !important;
-    width: 100% !important;
-    padding: 0 14px !important;
-  }
-
-  .trail-embed-category .industry-indicator {
-    margin-top: 0 !important;
-  }
-}
-
-/* Final mobile ordering pass: use the actual Webflow wrappers as ordered rows
-   while keeping the brain/video and overlay locked to the same centered slot. */
-@media (max-width: 767px) {
-  .screen-middle-2.is-flexed {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    position: relative !important;
-    min-height: 100svh !important;
-    height: 100% !important;
-    overflow: hidden !important;
-  }
-
-  .container.is-hh {
-    order: 1 !important;
-    position: static !important;
-    z-index: 10 !important;
-    width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
-    padding: 20px 18px 0 !important;
-    text-align: center !important;
-  }
-
-  .banking-left-embed {
-    order: 2 !important;
-    position: relative !important;
-    z-index: 25 !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    width: 100% !important;
-    margin-top: 14px !important;
-    padding: 0 16px !important;
-  }
-
-  .banking-left-embed .tool-column-wrap {
-    margin-top: 10px !important;
-  }
-
-  .container.is-hh .brian-video,
-  .container.is-hh .brain-video-wrap {
-    position: absolute !important;
-    z-index: 12 !important;
-    left: 50% !important;
-    top: clamp(342px, 52svh, 390px) !important;
-    width: min(64vw, 300px) !important;
-    max-width: 300px !important;
-    margin: 0 !important;
-    transform: translateX(-50%) !important;
-  }
-
-  .brain-overlay-embed {
-    position: absolute !important;
-    z-index: 30 !important;
-    left: 50% !important;
-    top: clamp(342px, 52svh, 390px) !important;
-    width: min(64vw, 300px) !important;
-    max-width: 300px !important;
-    transform: translateX(-50%) !important;
-    pointer-events: none !important;
-  }
-
-  .banking-right {
-    order: 4 !important;
-    position: relative !important;
-    z-index: 18 !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    width: 100% !important;
-    margin-top: clamp(176px, 26svh, 218px) !important;
-    padding: 0 16px !important;
-  }
-
-  .trail-embed {
-    order: 5 !important;
-    position: relative !important;
-    z-index: 20 !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    width: 100% !important;
-    margin-top: 8px !important;
-    padding: 0 16px !important;
-  }
-
-  .smart-approach-label {
-    order: 6 !important;
-    position: relative !important;
-    z-index: 20 !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    margin: 8px auto 0 !important;
-  }
-
-  .trail-embed-category {
     order: 7 !important;
-    position: relative !important;
     z-index: 20 !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    width: 100% !important;
-    margin-top: 6px !important;
-    padding: 0 16px !important;
-  }
-}
-
-/* Mobile brain offset fix: the brain should occupy normal space inside the
-   container; avoid absolute top calculations that produce large computed bottom values. */
-@media (max-width: 767px) {
-  .container.is-hh .brian-video,
-  .container.is-hh .brain-video-wrap {
-    position: relative !important;
-    z-index: 12 !important;
-    width: min(72vw, 340px) !important;
-    max-width: 340px !important;
-    height: auto !important;
-    aspect-ratio: 16 / 9 !important;
-    margin: 75px auto 0 !important;
-    transform: none !important;
-    bottom: auto !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-  }
-
-  .container.is-hh .brain-video {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important;
-    object-position: center !important;
-  }
-
-  .screen-middle-2.is-flexed .brain-overlay-embed {
-    position: absolute !important;
-    z-index: 30 !important;
-    pointer-events: none !important;
-    left: 50% !important;
-    top: calc(50% + 75px) !important;
-    width: min(72vw, 340px) !important;
-    max-width: 340px !important;
-    height: 235px !important;
-    transform: translateX(-50%) !important;
-    bottom: auto !important;
-    right: auto !important;
-    overflow: visible !important;
-  }
-
-  .screen-middle-2.is-flexed .brain-overlay {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-
-  .screen-middle-2.is-flexed .brain-path-svg {
-    width: 100% !important;
-    height: 100% !important;
-    overflow: visible !important;
   }
 }
 

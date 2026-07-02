@@ -76,10 +76,59 @@
     return root.lenis;
   };
 
+  root.applyMobileBrainLayout = () => {
+    const stage = document.querySelector(".screen-middle-2.is-flexed");
+    const container = document.querySelector(".container.is-hh");
+    const bankingLeft = document.querySelector(".banking-left-embed");
+    const brainVideo = document.querySelector(".brian-video, .brain-video-wrap");
+    const overlay = document.querySelector(".brain-overlay-embed");
+
+    if (!stage || !container || !bankingLeft || !brainVideo || !overlay) return;
+
+    const isMobile = !root.isDesktopHero();
+
+    root.mobileBrainState = root.mobileBrainState || {
+      videoParent: brainVideo.parentNode,
+      videoNext: brainVideo.nextSibling,
+      overlayParent: overlay.parentNode,
+      overlayNext: overlay.nextSibling
+    };
+
+    let stack = stage.querySelector(":scope > .mobile-brain-stack");
+
+    if (isMobile) {
+      if (!stack) {
+        stack = document.createElement("div");
+        stack.className = "mobile-brain-stack";
+      }
+
+      if (stack.parentNode !== stage) {
+        bankingLeft.insertAdjacentElement("afterend", stack);
+      }
+
+      if (brainVideo.parentNode !== stack) stack.appendChild(brainVideo);
+      if (overlay.parentNode !== stack) stack.appendChild(overlay);
+    } else {
+      const { videoParent, videoNext, overlayParent, overlayNext } = root.mobileBrainState;
+
+      if (videoParent && brainVideo.parentNode !== videoParent) {
+        videoParent.insertBefore(brainVideo, videoNext && videoNext.parentNode === videoParent ? videoNext : null);
+      }
+
+      if (overlayParent && overlay.parentNode !== overlayParent) {
+        overlayParent.insertBefore(overlay, overlayNext && overlayNext.parentNode === overlayParent ? overlayNext : null);
+      }
+
+      if (stack && !stack.childElementCount) stack.remove();
+    }
+  };
+
   root.applyResponsiveState = () => {
     const isDesktop = root.isDesktopHero();
     document.documentElement.classList.toggle("lamatic-hero-mobile", !isDesktop);
     document.documentElement.classList.toggle("lamatic-hero-desktop", isDesktop);
+
+    root.applyMobileBrainLayout();
 
     if (!isDesktop) {
       root.destroyLenis();
