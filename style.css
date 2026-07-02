@@ -2090,3 +2090,166 @@ body {
     opacity: 1 !important;
   }
 }
+
+/* Mobile tool icon row + straight connector comet lines. */
+@media (max-width: 767px) {
+  .connector-embed,
+  .connector-lines {
+    display: none !important;
+  }
+
+  .tool-column-wrap,
+  .banking-left-embed .tool-column-wrap {
+    order: 2;
+    display: flex !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: none !important;
+    margin: 26px auto 0 !important;
+    z-index: 40 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: none;
+  }
+
+  .banking-left-embed,
+  .input-rail,
+  .input-panel,
+  .input-card-grid {
+    position: relative !important;
+    z-index: 60 !important;
+  }
+
+  .input-card {
+    position: relative !important;
+    z-index: 70 !important;
+    background: #ffffff !important;
+  }
+
+  .tool-column,
+  .banking-left-embed .tool-column {
+    display: flex !important;
+    position: relative !important;
+    z-index: 5 !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+
+  .tool-icon {
+    width: 34px !important;
+    height: 34px !important;
+    opacity: 1 !important;
+    transform: scale(1) !important;
+  }
+
+  .tool-icon svg {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .tool-column-wrap::before,
+  .tool-column-wrap::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 1px;
+    height: 24px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    opacity: 0.95;
+    background-image:
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(243, 55, 54, 0.35) 45%,
+        rgba(243, 55, 54, 0.9) 50%,
+        rgba(243, 55, 54, 0.35) 55%,
+        transparent 100%
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(243, 55, 54, 0.55) 0 2px,
+        transparent 2px 6px
+      );
+    background-size:
+      100% 16px,
+      100% 6px;
+    background-repeat:
+      no-repeat,
+      repeat;
+    animation: mobileToolConnectorComet 1.6s linear infinite;
+    z-index: 1 !important;
+  }
+
+  .tool-column-wrap::before {
+    height: 12px !important;
+    bottom: calc(100% + 8px) !important;
+  }
+
+  .tool-column-wrap::after {
+    top: calc(100% + 6px);
+    animation-delay: 0.35s;
+  }
+
+  .mobile-brain-stack::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 8px);
+    width: 1px;
+    height: 30px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    opacity: 0.95;
+    z-index: 20;
+    background-image:
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(243, 55, 54, 0.35) 45%,
+        rgba(243, 55, 54, 0.85) 50%,
+        rgba(243, 55, 54, 0.35) 55%,
+        transparent 100%
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(243, 55, 54, 0.55) 0 2px,
+        transparent 2px 6px
+      );
+    background-size:
+      100% 18px,
+      100% 6px;
+    background-repeat:
+      no-repeat,
+      repeat;
+    animation: mobileToolConnectorComet 1.6s linear infinite;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes mobileToolConnectorComet {
+    0% {
+      background-position:
+        0 -16px,
+        0 0;
+    }
+
+    100% {
+      background-position:
+        0 24px,
+        0 0;
+    }
+  }
+}
